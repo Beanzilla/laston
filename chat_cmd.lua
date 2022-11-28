@@ -57,6 +57,9 @@ minetest.register_chatcommand("playtime", {
         if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
         end
+        if struct.pt == nil then
+            struct.pt = 0
+        end
         local diff = laston.since(struct.on) + struct.pt
         return true, laston.str_format(laston.format(diff))
     end,
@@ -75,6 +78,9 @@ minetest.register_chatcommand("pt", {
         local struct = laston.get(param)
         if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
+        end
+        if struct.pt == nil then
+            struct.pt = 0
         end
         local diff = laston.since(struct.on) + struct.pt
         return true, laston.short_str_format(laston.format(diff))
