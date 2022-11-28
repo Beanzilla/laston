@@ -10,10 +10,13 @@ minetest.register_chatcommand("laston", {
             return false, "Requires a playername as 2nd parameter."
         end
         local struct = laston.get(param)
-        if struct.on == 0 and struct.off == 0 then
+        if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
         end
-        local diff = laston.diff(struct.off)
+        if struct.off == 0 then
+            return true, "Player not found."
+        end
+        local diff = laston.since(struct.off)
         return true, laston.str_format(laston.format(diff))
     end,
 })
@@ -29,10 +32,13 @@ minetest.register_chatcommand("lo", {
             return false, "Requires a playername as 2nd parameter."
         end
         local struct = laston.get(param)
-        if struct.on == 0 and struct.off == 0 then
+        if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
         end
-        local diff = laston.diff(struct.off)
+        if struct.off == 0 then
+            return true, "Player not found."
+        end
+        local diff = laston.since(struct.off)
         return true, laston.short_str_format(laston.format(diff))
     end,
 })
@@ -48,10 +54,10 @@ minetest.register_chatcommand("playtime", {
             param = name
         end
         local struct = laston.get(param)
-        if struct.on == 0 and struct.off == 0 then
+        if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
         end
-        local diff = laston.diff(struct.on)
+        local diff = laston.since(struct.on) + struct.pt
         return true, laston.str_format(laston.format(diff))
     end,
 })
@@ -67,10 +73,10 @@ minetest.register_chatcommand("pt", {
             param = name
         end
         local struct = laston.get(param)
-        if struct.on == 0 and struct.off == 0 then
+        if struct.on == 0 and struct.pt == 0 and struct.off == 0 then
             return false, "Player not found."
         end
-        local diff = laston.diff(struct.on)
+        local diff = laston.since(struct.on) + struct.pt
         return true, laston.short_str_format(laston.format(diff))
     end,
 })

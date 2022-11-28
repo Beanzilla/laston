@@ -5,13 +5,13 @@ laston.get = function(player_name)
     if struct ~= "" then
         return minetest.deserialize(struct)
     end
-    return {on=0, off=0}
+    return {on=0, pt=0, off=0}
 end
 
 -- Assigns a structure to the player
 laston.set = function(player_name, struct)
     if struct == nil then
-        struct = {on=0, off=0}
+        struct = {on=0, pt=0, off=0}
     end
     laston.store:set_string("lo_"..player_name, minetest.serialize(struct))
 end
@@ -23,7 +23,7 @@ laston.now = function()
 end
 
 -- Obtains the number of seconds since the datetime stamp
-laston.diff = function(stamp)
+laston.since = function(stamp)
     local now = laston.now()
     --[[laston.log("Now=   " .. now)
     laston.log("Stamp= " .. stamp)
