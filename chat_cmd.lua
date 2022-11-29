@@ -60,7 +60,12 @@ minetest.register_chatcommand("playtime", {
         if struct.pt == nil then
             struct.pt = 0
         end
-        local diff = laston.since(struct.on) + struct.pt
+        local diff = 0
+        if laston.is_online(param) then
+            diff = laston.since(struct.on) + struct.pt
+        else
+            diff = struct.pt
+        end
         return true, laston.str_format(laston.format(diff))
     end,
 })
@@ -82,7 +87,12 @@ minetest.register_chatcommand("pt", {
         if struct.pt == nil then
             struct.pt = 0
         end
-        local diff = laston.since(struct.on) + struct.pt
+        local diff = 0
+        if laston.is_online(param) then
+            diff = laston.since(struct.on) + struct.pt
+        else
+            diff = struct.pt
+        end
         return true, laston.short_str_format(laston.format(diff))
     end,
 })

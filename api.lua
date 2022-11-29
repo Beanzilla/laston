@@ -125,3 +125,13 @@ laston.str_format = function(t)
     end
     return result
 end
+
+laston.is_online = function(player_name)
+    for idx, player in ipairs(minetest.get_connected_players()) do
+        local pname = player:get_player_name()
+        if pname == player_name then
+            return true
+        end
+    end
+    return false
+end
